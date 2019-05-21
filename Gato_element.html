@@ -1,0 +1,195 @@
+<html>
+    <body>
+        <h1></h1>
+        <gato-component></gato-component>
+    </body>
+
+</html>
+    <script>
+    // Create a class for the element
+class Gato extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+    // Create a shadow root
+    const shadow = this.attachShadow({mode: 'open'});
+
+    const title = document.createElement("h1")
+    title.setAttribute("class", "title")
+    title.textContent = "Juego Gato"
+
+    /*const prompt = document.createElement("input")
+    prompt.setAttribute("placeholder", "Elige X o O")
+    prompt.setAttribute("type", "text")
+    prompt.setAttribute("class", "promt")
+    prompt.setAttribute("id", "promt")
+    prompt.addEventListener("change", toUpperCasePromt)
+    prompt.textContent = "input"*/
+    
+    const table = document.createElement('div');
+    table.setAttribute('class', 'table');
+    const row = document.createElement('div');
+    row.setAttribute('class', 'row');
+
+
+    var x = 3;
+    var divs = x*x;
+
+    var prompts = []
+
+    var buttons=[]
+
+    const rows = []
+
+    var m = 3
+    var n = 3
+
+    var count = -1;
+
+    for (var j = 0; j < m; j++) {
+        count++
+        //console.log(j)
+        //$("#ttbody").append('<tr id="tr_' + j + '"></tr>');
+        rows.push(document.createElement("div"))
+        rows[j].setAttribute('class', 'row');
+        rows[j].setAttribute('id', 'rowid'+j);
+        table.appendChild(rows[j])
+
+        
+        if(j===count){
+            //console.log(rows[j])
+            //console.log(count)
+            for (var k = 0; k < n; k++) {
+                //console.log(rows[j])
+
+                var boton =  document.createElement("button")
+                boton.setAttribute("class", "button")
+                boton.setAttribute("id", j+","+k)
+                boton.setAttribute("type", "button")
+                boton.textContent = j+"-"+k
+                /*boton.addEventListener("click", function(e){
+                    console.log(e.target)
+                })*/
+                boton.addEventListener("click", clickBoton)   
+              
+                rows[j].appendChild(boton)
+
+                var promt =  document.createElement("input")
+                promt.setAttribute("placeholder", "Elige X o O" + "  " + j +"-"+k)
+                promt.setAttribute("class", "promt")
+                //promt.className="promt";
+
+                promt.setAttribute("id", j+","+k)
+                promt.setAttribute("type", "text")
+                promt.addEventListener("change", toUpperCasePromt)
+                promt.textContent = j+"-"+k
+
+                rows[j].appendChild(promt)
+                
+            }
+
+        }
+
+        
+    }
+
+    for(var i=0; i<(n*m); i++){
+
+        
+
+    }
+
+
+    
+
+
+
+    function clickBoton(e){
+        console.log((e.target.id))
+
+        var b= (e.target.id)//.split(",")
+        //var botonid= e.target
+        //table.appendChild(prompt[b[0]+","+b[1]])
+    }
+    function toUpperCasePromt(e){
+
+        console.log(e.target)
+        var x = e.target;
+        
+
+        console.log(x.value)
+
+        if(x.value==="x" || x.value==="X" || x.value==="o" || x.value==="O"){
+            x.value = x.value.toUpperCase();
+            //x.value = ""
+            //table.removeChild(prompt)
+        }else{
+            console.log("no es el valor")
+            x.value = ""
+        }
+        
+    }
+    
+
+    
+
+    console.log(buttons)
+    console.log(prompts)
+    console.log(rows)
+
+   
+
+    const style = document.createElement('style');
+    console.log(style.isConnected);
+
+    style.textContent = `
+      .table {
+        display: table;
+        width:100%
+      }
+      .row { display: table-row; }
+      .cell { display: table-cell; border: solid 1px; widht: 100px;}
+      .promt{
+          position: absolute;
+          display: none !important;
+      }
+      .divsgato{
+          position: relative
+      }
+      .title{
+          position: absolute
+          
+      }
+      .button {
+          background-color: #4CAF50; /* Green */
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          border: solid 1px;
+        }
+
+    `;
+
+
+    shadow.appendChild(style);
+    console.log(style.isConnected);
+    shadow.appendChild(title);
+
+
+    shadow.appendChild(title)
+    title.appendChild(table)
+
+    
+
+    
+  }
+}
+
+// Define the new element
+customElements.define('gato-component', Gato);
+    </script>
