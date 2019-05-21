@@ -1,195 +1,187 @@
 <html>
-    <body>
-        <h1></h1>
-        <gato-component></gato-component>
-    </body>
+
+<body>
+    <h1></h1>
+    <gato-component></gato-component>
+</body>
 
 </html>
-    <script>
+<script>
     // Create a class for the element
-class Gato extends HTMLElement {
-  constructor() {
-    // Always call super first in constructor
-    super();
+    class Gato extends HTMLElement {
+        constructor() {
+            // Always call super first in constructor
 
-    // Create a shadow root
-    const shadow = this.attachShadow({mode: 'open'});
+            let XO = prompt("Por favor ingresa X o O");
 
-    const title = document.createElement("h1")
-    title.setAttribute("class", "title")
-    title.textContent = "Juego Gato"
+            XO = XO.toUpperCase();
+            console.log(XO)
 
-    /*const prompt = document.createElement("input")
-    prompt.setAttribute("placeholder", "Elige X o O")
-    prompt.setAttribute("type", "text")
-    prompt.setAttribute("class", "promt")
-    prompt.setAttribute("id", "promt")
-    prompt.addEventListener("change", toUpperCasePromt)
-    prompt.textContent = "input"*/
-    
-    const table = document.createElement('div');
-    table.setAttribute('class', 'table');
-    const row = document.createElement('div');
-    row.setAttribute('class', 'row');
+            let player1;
+            let player2;
+            let partidaplayer1=true;
+            let partidaplayer2=false;
+
+            if (XO === "X" || XO === "O") {
+                super();
+
+                // Create a shadow root
+                const shadow = this.attachShadow({ mode: 'open' });
+
+                const title = document.createElement("h1");
+                title.setAttribute("class", "title");
+                title.textContent = "Juego Gato";
+
+                const table = document.createElement('div');
+                table.setAttribute('class', 'table');
+                const row = document.createElement('div');
+                row.setAttribute('class', 'row');
+
+                let buttons = [];
+
+                const rows = [];
+
+                let m = 3;
+                let n = 3;
+
+                let count = -1;
+
+                for (let j = 0; j < m; j++) {
+                    count++
+                    //console.log(j)
+                    rows.push(document.createElement("div"));
+                    rows[j].setAttribute('class', 'row');
+                    rows[j].setAttribute('id', 'rowid' + j);
+                    table.appendChild(rows[j]);
 
 
-    var x = 3;
-    var divs = x*x;
+                    if (j === count) {
+                        //console.log(rows[j])
+                        //console.log(count)
+                        for (let k = 0; k < n; k++) {
+                            //console.log(rows[j])
 
-    var prompts = []
+                            let boton = document.createElement("button");
+                            boton.setAttribute("class", "button");
+                            boton.setAttribute("id", j + "," + k);
+                            boton.setAttribute("type", "button");
+                            //boton.textContent = j+"-"+k
+                            boton.textContent = '-';
+                            boton.addEventListener("click", clickBoton);
 
-    var buttons=[]
+                            rows[j].appendChild(boton);
 
-    const rows = []
+                        }
 
-    var m = 3
-    var n = 3
+                    }
 
-    var count = -1;
 
-    for (var j = 0; j < m; j++) {
-        count++
-        //console.log(j)
-        //$("#ttbody").append('<tr id="tr_' + j + '"></tr>');
-        rows.push(document.createElement("div"))
-        rows[j].setAttribute('class', 'row');
-        rows[j].setAttribute('id', 'rowid'+j);
-        table.appendChild(rows[j])
+                }
 
-        
-        if(j===count){
-            //console.log(rows[j])
-            //console.log(count)
-            for (var k = 0; k < n; k++) {
-                //console.log(rows[j])
+                function clickBoton(e) {
 
-                var boton =  document.createElement("button")
-                boton.setAttribute("class", "button")
-                boton.setAttribute("id", j+","+k)
-                boton.setAttribute("type", "button")
-                boton.textContent = j+"-"+k
-                /*boton.addEventListener("click", function(e){
+                    let b = e.target;
+                    console.log(b);
+                    console.log(XO);
+                    player1=XO;
+
+                    if(player1==='X'){
+                        player1=XO;
+                        player2='O';
+                    }else if(player1==='O'){
+                        player1=XO;
+                        player2='X';
+                    }  
+
+                    if(partidaplayer1 === true){
+                        b.value = player1
+                        b.textContent = player1
+                        partidaplayer1 = false
+                        partidaplayer2 = true
+                        console.log(player1)
+                        console.log(player2)
+
+                    }else if(partidaplayer2 === true){
+                        b.value = player2
+                        b.textContent = player2
+                        partidaplayer2 = false
+                        partidaplayer1 = true
+                        console.log(player1)
+                        console.log(player2)
+
+                    }
+
+                    
+
+
+
+                }
+                function toUpperCasePromt(e) {
+
                     console.log(e.target)
-                })*/
-                boton.addEventListener("click", clickBoton)   
-              
-                rows[j].appendChild(boton)
+                    let x = e.target;
 
-                var promt =  document.createElement("input")
-                promt.setAttribute("placeholder", "Elige X o O" + "  " + j +"-"+k)
-                promt.setAttribute("class", "promt")
-                //promt.className="promt";
 
-                promt.setAttribute("id", j+","+k)
-                promt.setAttribute("type", "text")
-                promt.addEventListener("change", toUpperCasePromt)
-                promt.textContent = j+"-"+k
+                    console.log(x.value)
 
-                rows[j].appendChild(promt)
-                
+
+
+                }
+
+
+
+
+                console.log(buttons)
+                console.log(rows)
+
+
+
+                const style = document.createElement('style');
+
+                style.textContent = `
+                .table {
+                    display: table;
+                    width:100%
+                    }
+                .row { display: table-row; }
+                .cell { display: table-cell; border: solid 1px; widht: 100px;}
+                .title{
+                    position: absolute
+                    }
+                .button {
+                    background-color: #4CAF50; /* Green */
+                    border: none;
+                    color: white;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    border: solid 1px;
+                    }
+                    `;
+
+
+                shadow.appendChild(style);
+
+                shadow.appendChild(title);
+
+
+                shadow.appendChild(title)
+                title.appendChild(table)
+
+
+            } else {
+                alert("Refresca tu página, para volver a iniciar, el valor insertado no es el correcto")
+                console.log("no es el valor")
             }
 
+
+
+
         }
-
-        
     }
 
-    for(var i=0; i<(n*m); i++){
-
-        
-
-    }
-
-
-    
-
-
-
-    function clickBoton(e){
-        console.log((e.target.id))
-
-        var b= (e.target.id)//.split(",")
-        //var botonid= e.target
-        //table.appendChild(prompt[b[0]+","+b[1]])
-    }
-    function toUpperCasePromt(e){
-
-        console.log(e.target)
-        var x = e.target;
-        
-
-        console.log(x.value)
-
-        if(x.value==="x" || x.value==="X" || x.value==="o" || x.value==="O"){
-            x.value = x.value.toUpperCase();
-            //x.value = ""
-            //table.removeChild(prompt)
-        }else{
-            console.log("no es el valor")
-            x.value = ""
-        }
-        
-    }
-    
-
-    
-
-    console.log(buttons)
-    console.log(prompts)
-    console.log(rows)
-
-   
-
-    const style = document.createElement('style');
-    console.log(style.isConnected);
-
-    style.textContent = `
-      .table {
-        display: table;
-        width:100%
-      }
-      .row { display: table-row; }
-      .cell { display: table-cell; border: solid 1px; widht: 100px;}
-      .promt{
-          position: absolute;
-          display: none !important;
-      }
-      .divsgato{
-          position: relative
-      }
-      .title{
-          position: absolute
-          
-      }
-      .button {
-          background-color: #4CAF50; /* Green */
-          border: none;
-          color: white;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          border: solid 1px;
-        }
-
-    `;
-
-
-    shadow.appendChild(style);
-    console.log(style.isConnected);
-    shadow.appendChild(title);
-
-
-    shadow.appendChild(title)
-    title.appendChild(table)
-
-    
-
-    
-  }
-}
-
-// Define the new element
-customElements.define('gato-component', Gato);
-    </script>
+    // Define the new element
+    customElements.define('gato-component', Gato);
+</script>
