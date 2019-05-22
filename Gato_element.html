@@ -12,133 +12,152 @@
         constructor() {
             // Always call super first in constructor
 
-            let XO = prompt("Por favor ingresa X o O");
+            super();
 
-            XO = XO.toUpperCase();
-            console.log(XO)
+            let nm = 3//prompt("Ingresa el numero");
+            let arreglo = new Array();
 
-            let player1;
-            let player2;
-            let partidaplayer1=true;
-            let partidaplayer2=false;
+            let a;
 
-            if (XO === "X" || XO === "O") {
-                super();
+            // Create a shadow root
+            const shadow = this.attachShadow({ mode: 'open' });
+            const title = document.createElement("h1");
+            title.setAttribute("class", "title");
+            title.textContent = "Juego del Gato";
 
-                // Create a shadow root
-                const shadow = this.attachShadow({ mode: 'open' });
+            const table = document.createElement('div');
+            table.setAttribute('class', 'table');
+            //const row = document.createElement('div');
+            //row.setAttribute('class', 'row');
 
-                const title = document.createElement("h1");
-                title.setAttribute("class", "title");
-                title.textContent = "Juego Gato";
+            if (nm >= 3) {
 
-                const table = document.createElement('div');
-                table.setAttribute('class', 'table');
-                const row = document.createElement('div');
-                row.setAttribute('class', 'row');
+                let XO = 'X'//prompt("Por favor ingresa X o O");
 
-                let buttons = [];
+                XO = XO.toUpperCase();
+                //console.log(XO)
 
-                const rows = [];
+                let player1;
+                let player2;
+                let partidaplayer1 = true;
+                let partidaplayer2 = false;
 
-                let m = 3;
-                let n = 3;
-
-                let count = -1;
-
-                for (let j = 0; j < m; j++) {
-                    count++
-                    //console.log(j)
-                    rows.push(document.createElement("div"));
-                    rows[j].setAttribute('class', 'row');
-                    rows[j].setAttribute('id', 'rowid' + j);
-                    table.appendChild(rows[j]);
+                if (XO === "X" || XO === "O") {
+                    for (let i = 0; i < nm; i++) {
+                        arreglo[i] = new Array();
 
 
-                    if (j === count) {
-                        //console.log(rows[j])
-                        //console.log(count)
-                        for (let k = 0; k < n; k++) {
-                            //console.log(rows[j])
 
-                            let boton = document.createElement("button");
-                            boton.setAttribute("class", "button");
-                            boton.setAttribute("id", j + "," + k);
-                            boton.setAttribute("type", "button");
-                            //boton.textContent = j+"-"+k
-                            boton.textContent = '-';
-                            boton.addEventListener("click", clickBoton);
+                        for (let j = 0; j < nm; j++) {
+                            let button = document.createElement("button");
+                            button.value = i + "," + j;
+                            button.setAttribute("class", "button");
+                            button.addEventListener("click", clickBoton);
+                            button.textContent = "-"
+                            arreglo[i][j] = button//i+","+j;
 
-                            rows[j].appendChild(boton);
+                            table.appendChild(button)
 
                         }
 
                     }
 
 
+
                 }
+
 
                 function clickBoton(e) {
 
-                    let b = e.target;
-                    console.log(b);
-                    console.log(XO);
-                    player1=XO;
+                    //console.log(e.target)
 
-                    if(player1==='X'){
-                        player1=XO;
-                        player2='O';
-                    }else if(player1==='O'){
-                        player1=XO;
-                        player2='X';
-                    }  
+                    a = e.target
 
-                    if(partidaplayer1 === true){
-                        b.value = player1
-                        b.textContent = player1
-                        partidaplayer1 = false
-                        partidaplayer2 = true
+                    //let b = e.target;
+                    //console.log(b);
+                    //console.log(XO);
+                    player1 = XO;
+
+                    if (player1 === 'X') {
+                        player1 = XO;
+                        player2 = 'O';
+                    } else if (player1 === 'O') {
+                        player1 = XO;
+                        player2 = 'X';
+                    }
+
+                    if (partidaplayer1 === true) {
+                        //b.value = player1;
+                        a.textContent = player1;
+                        partidaplayer1 = false;
+                        partidaplayer2 = true;
+                        //console.log(player1);
+                        //console.log(player2);
+                        //verifica(a, player1)
+                        console.log(a)
                         console.log(player1)
-                        console.log(player2)
 
-                    }else if(partidaplayer2 === true){
-                        b.value = player2
-                        b.textContent = player2
-                        partidaplayer2 = false
-                        partidaplayer1 = true
-                        console.log(player1)
+
+
+                    } else if (partidaplayer2 === true) {
+                        //b.value = player2;
+                        a.textContent = player2;
+                        partidaplayer2 = false;
+                        partidaplayer1 = true;
+                        //sverifica(a, player2)
+                        //console.log(player1);
+                        //console.log(player2);
+                        console.log(a)
                         console.log(player2)
 
                     }
 
                     
-
-
-
-                }
-                function toUpperCasePromt(e) {
-
-                    console.log(e.target)
-                    let x = e.target;
-
-
-                    console.log(x.value)
-
+                    
 
 
                 }
 
+                function verifica(a, player) {
+                    console.log("verifica valor: "+ a)
+                    console.log("verifica valor: "+ player)
+                    for (let i = 0; i < nm; i++) {
+                        arreglo[i] = new Array();
+
+                        for (let j = 0; j < nm; j++) {
+
+                            arreglo[i][j] = i + "," + j;
+
+                            console.log(arreglo[i][j])
+
+                            if(arreglo[i][j]===a){
+                                arreglo[i][j]=player
+                            }
+                            console.log(arreglo[i][j])
+
+                        }
+
+                    }
+
+                }
 
 
 
-                console.log(buttons)
-                console.log(rows)
 
 
 
-                const style = document.createElement('style');
 
-                style.textContent = `
+                console.log(arreglo)
+            } else {
+                alert("No ingresaste ningun numero, reload página")
+            }
+
+
+
+
+            const style = document.createElement('style');
+
+            style.textContent = `
                 .table {
                     display: table;
                     width:100%
@@ -162,19 +181,14 @@
                     `;
 
 
-                shadow.appendChild(style);
-
-                shadow.appendChild(title);
+            shadow.appendChild(style);
 
 
-                shadow.appendChild(title)
-                title.appendChild(table)
+            shadow.appendChild(title)
+            title.appendChild(table)
 
 
-            } else {
-                alert("Refresca tu página, para volver a iniciar, el valor insertado no es el correcto")
-                console.log("no es el valor")
-            }
+
 
 
 
