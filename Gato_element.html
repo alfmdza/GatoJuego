@@ -45,22 +45,23 @@
                             button.setAttribute('class', 'button');
                             button.textContent = '-';
                             button.addEventListener('click', function () {
+                                
                                 //verifica(arreglo[i][j]);
                                 if (partidaplayer1 === true) {
                                     arreglo[i][j] = player1;
                                     button.textContent = player1;
-                                    verifica();
                                     partidaplayer1 = false;
                                     partidaplayer2 = true;
                                     //console.log(player1)
                                 } else if (partidaplayer2 === true) {
                                     arreglo[i][j] = player2;
                                     button.textContent = player2;
-                                    verifica();
                                     partidaplayer2 = false;
                                     partidaplayer1 = true;
                                     //console.log(player2)
                                 }
+                                verifica();
+                                
                             });
                             table.appendChild(button);
                         }
@@ -127,9 +128,15 @@
                         countXV = 0
                         countOV = 0
                     }
+
+                    
                     console.log(arreglo)
+
                 }
 
+                
+
+                
             } else {
                 alert('No ingresaste ningún número, reload página')
             }
