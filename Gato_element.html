@@ -13,7 +13,8 @@
         }
         connectedCallback() {
             console.log('Load NuevoElementoWeb agregado');
-            let tamano = 3//prompt('Ingresa el numero');
+            const tamano = prompt('Ingresa el numero');
+            console.log(tamano)
             let arreglo = new Array();
             let letraElegida = 'X'//prompt('Por favor ingresa X o O');
             letraElegida = letraElegida.toUpperCase();
@@ -48,7 +49,6 @@
                             button.textContent = '-';
                             button.addEventListener('click', () => verifica(i, j, button));
                             table.appendChild(button);
-
                         }
                     }
                 }
@@ -69,7 +69,6 @@
                             partidaplayer1 = true;
                             //console.log(player2)
                         }
-
                         for (let i = 0; i < arreglo.length; i++) {
                             console.log(arreglo[i]);
                             let countXH = 0;
@@ -84,7 +83,7 @@
                                 if (arreglo[i][k] === 'X') {
                                     countXH += 1;
 
-                                    if (countXH === 3) {
+                                    if (countXH === arreglo.length) {
                                         alert('GANASTE X');
                                         location.reload();
                                         break;
@@ -94,7 +93,7 @@
                                 } else if (arreglo[i][k] === 'O') {
                                     countOH += 1;
 
-                                    if (countOH === 3) {
+                                    if (countOH === arreglo.length) {
                                         alert('GANASTE O');
                                         location.reload();
                                         break;
@@ -103,12 +102,11 @@
                                 }
                                 console.log('countXH' + countXH);
                                 console.log('countOH' + countOH);
-
                                 console.log('I' + arreglo[k][i]);
                                 if (arreglo[k][i] === 'X') {
                                     countXV += 1;
 
-                                    if (countXV === 3) {
+                                    if (countXV === arreglo.length) {
                                         alert('GANASTE X');
                                         location.reload();
                                         break;
@@ -117,7 +115,7 @@
                                 } else if (arreglo[k][i] === 'O') {
                                     countOV += 1
 
-                                    if (countOV === 3) {
+                                    if (countOV === arreglo.length) {
                                         alert('GANASTE O');
                                         location.reload();
                                         break;
@@ -127,31 +125,19 @@
                                 console.log('countX' + countXV);
                                 console.log('countO' + countOV);
                             }
-
                             countXH = 0
                             countOH = 0
                             countXV = 0
                             countOV = 0
                         }
-
                     }
-
-
-
-
                     console.log(arreglo)
-
                 }
-
-
-
 
             } else {
                 alert('No ingresaste ningún número, reload página')
             }
-
             const style = document.createElement('style');
-
             style.textContent = `
             .table {
                 display: table;
@@ -177,26 +163,16 @@
             shadow.appendChild(style);
             shadow.appendChild(title);
             title.appendChild(table);
-
         }
-
-
-
-
-
         disconnectedCallback() {
             console.log('Removiendo NuevoElementoWeb');
         }
-
         attributeChangedCallback(name, oldValue, newValue) {
             console.log('Cambian propiedades', name, oldValue, newValue);
         }
-
         static get observedAttributes() {
             return ['c', 'l'];
         }
-
-
     }
 
     customElements.define('gato-juego', Gato_Juego);
