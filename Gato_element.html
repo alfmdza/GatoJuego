@@ -46,92 +46,97 @@
                             let button = document.createElement('button');
                             button.setAttribute('class', 'button');
                             button.textContent = '-';
-                            button.addEventListener('click', () => clickBoton(i,j, button));
+                            button.addEventListener('click', () => verifica(i, j, button));
                             table.appendChild(button);
+
                         }
                     }
                 }
 
-                function clickBoton(i,j,button) {
-                    //verifica(arreglo[i][j]);
-                    if (partidaplayer1 === true) {
-                        arreglo[i][j] = player1;
-                        button.textContent = player1;
-                        partidaplayer1 = false;
-                        partidaplayer2 = true;
-                        //console.log(player1)
-                    } else if (partidaplayer2 === true) {
-                        arreglo[i][j] = player2;
-                        button.textContent = player2;
-                        partidaplayer2 = false;
-                        partidaplayer1 = true;
-                        //console.log(player2)
-                    }
-                    verifica();
-
-
-                }
-
-                function verifica() {
-
-                    for (let i = 0; i < arreglo.length; i++) {
-                        console.log(arreglo[i]);
-                        let countXH = 0;
-                        let countOH = 0;
-                        let countXV = 0;
-                        let countOV = 0;
-                        let countD1 = 0;
-                        let countD2 = 0;
-
-                        for (let k = 0; k < arreglo[i].length; k++) {
-                            console.log(arreglo[i][k]);
-                            if (arreglo[i][k] === 'X') {
-                                countXH += 1;
-
-                                if (countXH === 3) {
-                                    alert('GANASTE X');
-                                    break;
-                                }
-
-                            } else if (arreglo[i][k] === 'O') {
-                                countOH += 1;
-
-                                if (countOH === 3) {
-                                    alert('GANASTE O');
-                                    break;
-                                }
-
-                            }
-                            console.log('countXH' + countXH);
-                            console.log('countOH' + countOH);
-
-                            console.log('I' + arreglo[k][i]);
-                            if (arreglo[k][i] === 'X') {
-                                countXV += 1;
-
-                                if (countXV === 3) {
-                                    alert('GANASTE X');
-                                    break;
-                                }
-
-                            } else if (arreglo[k][i] === 'O') {
-                                countOV += 1
-
-                                if (countOV === 3) {
-                                    alert('GANASTE O');
-                                    break;
-                                }
-
-                            }
-                            console.log('countX' + countXV);
-                            console.log('countO' + countOV);
+                function verifica(i, j, button) {
+                    if (button.textContent === '-') {
+                        console.log("trueeeeeeeeeeeeeeeee")
+                        if (partidaplayer1 === true) {
+                            arreglo[i][j] = player1;
+                            button.textContent = player1;
+                            partidaplayer1 = false;
+                            partidaplayer2 = true;
+                            //console.log(player1)
+                        } else if (partidaplayer2 === true) {
+                            arreglo[i][j] = player2;
+                            button.textContent = player2;
+                            partidaplayer2 = false;
+                            partidaplayer1 = true;
+                            //console.log(player2)
                         }
 
-                        countXH = 0
-                        countOH = 0
-                        countXV = 0
-                        countOV = 0
+                        for (let i = 0; i < arreglo.length; i++) {
+                            console.log(arreglo[i]);
+                            let countXH = 0;
+                            let countOH = 0;
+                            let countXV = 0;
+                            let countOV = 0;
+                            let countD1 = 0;
+                            let countD2 = 0;
+
+                            for (let k = 0; k < arreglo[i].length; k++) {
+                                console.log(arreglo[i][k]);
+                                if (arreglo[i][k] === 'X') {
+                                    countXH += 1;
+
+                                    if (countXH === 3) {
+                                        alert('GANASTE X');
+                                        location.reload();
+                                        break;
+                                        
+                                    }
+
+                                } else if (arreglo[i][k] === 'O') {
+                                    countOH += 1;
+
+                                    if (countOH === 3) {
+                                        alert('GANASTE O');
+                                        location.reload();
+                                        break;
+                                    }
+
+                                }
+                                console.log('countXH' + countXH);
+                                console.log('countOH' + countOH);
+
+                                console.log('I' + arreglo[k][i]);
+                                if (arreglo[k][i] === 'X') {
+                                    countXV += 1;
+
+                                    if (countXV === 3) {
+                                        alert('GANASTE X');
+                                        location.reload();
+                                        break;
+                                    }
+
+                                } else if (arreglo[k][i] === 'O') {
+                                    countOV += 1
+
+                                    if (countOV === 3) {
+                                        alert('GANASTE O');
+                                        location.reload();
+                                        break;
+                                    }
+
+                                }
+                                console.log('countX' + countXV);
+                                console.log('countO' + countOV);
+                            }
+
+                            countXH = 0
+                            countOH = 0
+                            countXV = 0
+                            countOV = 0
+                        }
+
                     }
+
+
 
 
                     console.log(arreglo)
