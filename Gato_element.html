@@ -1,10 +1,8 @@
 <html>
-
 <body>
     <h1></h1>
     <gato-juego></gato-juego>
 </body>
-
 </html>
 <script>
     class Gato_Juego extends HTMLElement {
@@ -13,121 +11,101 @@
         }
         connectedCallback() {
             console.log('Load NuevoElementoWeb agregado');
-            let tamano = 3//prompt("Ingresa el numero");
+            let tamano = 3//prompt('Ingresa el numero');
             let arreglo = new Array();
+            let letraElegida = 'X'//prompt('Por favor ingresa X o O');
+            letraElegida = letraElegida.toUpperCase();
 
             const shadow = this.attachShadow({ mode: 'open' });
             const title = document.createElement('h1');
             title.setAttribute('class', 'title');
             title.textContent = 'Juego del Gato';
-
             const table = document.createElement('div');
             table.setAttribute('class', 'table');
 
+            let player1;
+            let player2;
+            let partidaplayer1 = true;
+            let partidaplayer2 = false;
+
             if (tamano >= 3) {
-
-                let letraElegida = 'X'//prompt("Por favor ingresa X o O");
-
-                letraElegida = letraElegida.toUpperCase();
-                //console.log(letraElegida)
-
-                let player1;
-                let player2;
-                let partidaplayer1 = true;
-                let partidaplayer2 = false;
-
-                if (letraElegida === "X" || letraElegida === "O") {
-
+                if (letraElegida === 'X' || letraElegida === 'O') {
                     player1 = letraElegida;
-
                     if (player1 === 'X') {
                         player2 = 'O';
                     } else if (player1 === 'O') {
                         player2 = 'X';
                     }
-
-
                     for (let i = 0; i < tamano; i++) {
                         arreglo[i] = new Array();
 
-
-
                         for (let j = 0; j < tamano; j++) {
-                            arreglo[i][j] = i + "," + j;
-                            let button = document.createElement("button");
-                            button.setAttribute("class", "button");
-                            button.textContent = "-"
-                            button.addEventListener("click", function () {
+                            arreglo[i][j] = i + ',' + j;
+                            let button = document.createElement('button');
+                            button.setAttribute('class', 'button');
+                            button.textContent = '-';
+                            button.addEventListener('click', function () {
                                 //verifica(arreglo[i][j]);
                                 if (partidaplayer1 === true) {
-                                    arreglo[i][j] = player1
-                                    button.textContent = player1
+                                    arreglo[i][j] = player1;
+                                    button.textContent = player1;
                                     verifica();
                                     partidaplayer1 = false;
                                     partidaplayer2 = true;
                                     //console.log(player1)
                                 } else if (partidaplayer2 === true) {
-                                    arreglo[i][j] = player2
-                                    button.textContent = player2
+                                    arreglo[i][j] = player2;
+                                    button.textContent = player2;
                                     verifica();
                                     partidaplayer2 = false;
                                     partidaplayer1 = true;
                                     //console.log(player2)
                                 }
-
-
                             });
-
-
-                            table.appendChild(button)
-
+                            table.appendChild(button);
                         }
-
                     }
-
-
-
                 }
 
                 function verifica() {
 
                     for (let i = 0; i < arreglo.length; i++) {
-                        console.log(arreglo[i])
-                        let countXH = 0
-                        let countOH = 0
-                        let countXV = 0
-                        let countOV = 0
-                        let countD1 = 0
-                        let countD2 = 0
+                        console.log(arreglo[i]);
+                        let countXH = 0;
+                        let countOH = 0;
+                        let countXV = 0;
+                        let countOV = 0;
+                        let countD1 = 0;
+                        let countD2 = 0;
 
                         for (let k = 0; k < arreglo[i].length; k++) {
-                            console.log(arreglo[i][k])
+                            console.log(arreglo[i][k]);
                             if (arreglo[i][k] === 'X') {
-                                countXH += 1
+                                countXH += 1;
 
                                 if (countXH === 3) {
-                                    alert("GANASTE X")
+                                    alert('GANASTE X');
                                     break;
                                 }
 
                             } else if (arreglo[i][k] === 'O') {
-                                countOH += 1
+                                countOH += 1;
 
                                 if (countOH === 3) {
-                                    alert("GANASTE O")
+                                    alert('GANASTE O');
                                     break;
                                 }
 
                             }
-                            console.log("countXH" + countXH)
-                            console.log("countOH" + countOH)
+                            console.log('countXH' + countXH);
+                            console.log('countOH' + countOH);
 
-                            console.log("I" + arreglo[k][i])
+                            console.log('I' + arreglo[k][i]);
                             if (arreglo[k][i] === 'X') {
-                                countXV += 1
+                                countXV += 1;
 
                                 if (countXV === 3) {
-                                    alert("GANASTE X")
+                                    alert('GANASTE X');
                                     break;
                                 }
 
@@ -135,57 +113,50 @@
                                 countOV += 1
 
                                 if (countOV === 3) {
-                                    alert("GANASTE O")
+                                    alert('GANASTE O');
                                     break;
                                 }
 
                             }
-                            console.log("countX" + countXV)
-                            console.log("countO" + countOV)
+                            console.log('countX' + countXV);
+                            console.log('countO' + countOV);
                         }
 
                         countXH = 0
                         countOH = 0
                         countXV = 0
                         countOV = 0
-
-
                     }
                     console.log(arreglo)
-
                 }
 
-
-
             } else {
-                alert("No ingresaste ningun numero, reload página")
+                alert('No ingresaste ningún número, reload página')
             }
-
-
 
             const style = document.createElement('style');
 
             style.textContent = `
-       .table {
-        display: table;
-        width:100%
-        }
-        .row { display: table-row; }
-        .cell { display: table-cell; border: solid 1px; widht: 100px;}
-        .title{
-        position: absolute
-        }
-        .button {
-        background-color: #4CAF50; /* Green */
-        border: none;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        border: solid 1px;
-        }
+            .table {
+                display: table;
+                width:100%
+                }
+            .row { display: table-row; }
+            .cell { display: table-cell; border: solid 1px; widht: 100px;}
+            .title{
+                    position: absolute
+                    }
+            .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border: solid 1px;
+            }
                     `;
             shadow.appendChild(style);
             shadow.appendChild(title);
