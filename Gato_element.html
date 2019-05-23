@@ -14,12 +14,9 @@
 
             super();
 
-            let nm = 3//prompt("Ingresa el numero");
+            let tamano = 3//prompt("Ingresa el numero");
             let arreglo = new Array();
 
-            let a;
-
-            // Create a shadow root
             const shadow = this.attachShadow({ mode: 'open' });
             const title = document.createElement("h1");
             title.setAttribute("class", "title");
@@ -27,34 +24,61 @@
 
             const table = document.createElement('div');
             table.setAttribute('class', 'table');
-            //const row = document.createElement('div');
-            //row.setAttribute('class', 'row');
 
-            if (nm >= 3) {
+            if (tamano >= 3) {
 
-                let XO = 'X'//prompt("Por favor ingresa X o O");
+                let letraElegida = 'X'//prompt("Por favor ingresa X o O");
 
-                XO = XO.toUpperCase();
-                //console.log(XO)
+                letraElegida = letraElegida.toUpperCase();
+                //console.log(letraElegida)
 
                 let player1;
                 let player2;
                 let partidaplayer1 = true;
                 let partidaplayer2 = false;
 
-                if (XO === "X" || XO === "O") {
-                    for (let i = 0; i < nm; i++) {
+                if (letraElegida === "X" || letraElegida === "O") {
+
+                    player1 = letraElegida;
+
+                    if (player1 === 'X') {
+                        player2 = 'O';
+                    } else if (player1 === 'O') {
+                        player2 = 'X';
+                    }
+
+                    
+                    for (let i = 0; i < tamano; i++) {
                         arreglo[i] = new Array();
 
 
 
-                        for (let j = 0; j < nm; j++) {
+                        for (let j = 0; j < tamano; j++) {
+                        	arreglo[i][j] = i+","+j;
                             let button = document.createElement("button");
-                            button.value = i + "," + j;
                             button.setAttribute("class", "button");
-                            button.addEventListener("click", clickBoton);
                             button.textContent = "-"
-                            arreglo[i][j] = button//i+","+j;
+                            button.addEventListener("click", function() {
+                            	//verifica(arreglo[i][j]);
+                            	if (partidaplayer1 === true) {
+                            		arreglo[i][j]=player1
+                            		button.textContent=player1
+                            		verifica();
+                            		partidaplayer1 = false;
+                            		partidaplayer2 = true;
+                            		//console.log(player1)
+                            	} else if (partidaplayer2 === true) {
+                            		arreglo[i][j]=player2
+                            		button.textContent=player2
+                            		verifica();
+                            		partidaplayer2 = false;
+                            		partidaplayer1 = true;
+                            		//console.log(player2)
+                            	}
+
+                            	
+                            });
+                            
 
                             table.appendChild(button)
 
@@ -66,94 +90,48 @@
 
                 }
 
+                function verifica() {
+                	let countX=0
+                	let countO=0
+                    for (let i = 0; i < arreglo.length; i++) {
+                    	console.log(arreglo[i])
+                    	for(let k=0; k<arreglo[i].length; k++){
+                    		console.log(arreglo[i][k])
+                    		if(arreglo[i][k]==='X'){
+                    			countX +=1
 
-                function clickBoton(e) {
+                    			if(countX===3){
+                    				console.log("GANASTE X")
+                    			}
 
-                    //console.log(e.target)
+                    		}else if(arreglo[i][k]==='O'){
+                    			countO +=1
 
-                    a = e.target
+                    			if(countO===3){
+                    				console.log("GANASTE O")
+                    			}
 
-                    //let b = e.target;
-                    //console.log(b);
-                    //console.log(XO);
-                    player1 = XO;
+                    		}
+                    		console.log("countX"+countX)
+                    		console.log("countO"+countO)
+                        }
 
-                    if (player1 === 'X') {
-                        player1 = XO;
-                        player2 = 'O';
-                    } else if (player1 === 'O') {
-                        player1 = XO;
-                        player2 = 'X';
-                    }
+                        countX=0
+                        countO=0
+                        
 
-                    if (partidaplayer1 === true) {
-                        //b.value = player1;
-                        a.textContent = player1;
-                        partidaplayer1 = false;
-                        partidaplayer2 = true;
-                        //console.log(player1);
-                        //console.log(player2);
-                        //verifica(a, player1)
-                        console.log(a)
-                        console.log(player1)
-
-
-
-                    } else if (partidaplayer2 === true) {
-                        //b.value = player2;
-                        a.textContent = player2;
-                        partidaplayer2 = false;
-                        partidaplayer1 = true;
-                        //sverifica(a, player2)
-                        //console.log(player1);
-                        //console.log(player2);
-                        console.log(a)
-                        console.log(player2)
-
-                    }
-
-                    
-                    
-
-
-                }
-
-                function verifica(a, player) {
-                    console.log("verifica valor: "+ a)
-                    console.log("verifica valor: "+ player)
-                    for (let i = 0; i < nm; i++) {
-                        arreglo[i] = new Array();
-
-                        for (let j = 0; j < nm; j++) {
-
-                            arreglo[i][j] = i + "," + j;
-
-                            console.log(arreglo[i][j])
-
-                            if(arreglo[i][j]===a){
-                                arreglo[i][j]=player
-                            }
-                            console.log(arreglo[i][j])
+                        for (let j = 0; j < arreglo.length; j++) {
 
                         }
 
                     }
+                    console.log(arreglo)
 
                 }
-
-
-
-
-
-
-
-                console.log(arreglo)
+  
             } else {
                 alert("No ingresaste ningun numero, reload página")
             }
-
-
-
 
             const style = document.createElement('style');
 
@@ -180,10 +158,7 @@
                     }
                     `;
 
-
             shadow.appendChild(style);
-
-
             shadow.appendChild(title)
             title.appendChild(table)
 
