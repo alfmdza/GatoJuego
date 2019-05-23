@@ -1,8 +1,10 @@
 <html>
+
 <body>
     <h1></h1>
     <gato-juego></gato-juego>
 </body>
+
 </html>
 <script>
     class Gato_Juego extends HTMLElement {
@@ -44,28 +46,30 @@
                             let button = document.createElement('button');
                             button.setAttribute('class', 'button');
                             button.textContent = '-';
-                            button.addEventListener('click', function () {
-                                
-                                //verifica(arreglo[i][j]);
-                                if (partidaplayer1 === true) {
-                                    arreglo[i][j] = player1;
-                                    button.textContent = player1;
-                                    partidaplayer1 = false;
-                                    partidaplayer2 = true;
-                                    //console.log(player1)
-                                } else if (partidaplayer2 === true) {
-                                    arreglo[i][j] = player2;
-                                    button.textContent = player2;
-                                    partidaplayer2 = false;
-                                    partidaplayer1 = true;
-                                    //console.log(player2)
-                                }
-                                verifica();
-                                
-                            });
+                            button.addEventListener('click', () => clickBoton(i,j, button));
                             table.appendChild(button);
                         }
                     }
+                }
+
+                function clickBoton(i,j,button) {
+                    //verifica(arreglo[i][j]);
+                    if (partidaplayer1 === true) {
+                        arreglo[i][j] = player1;
+                        button.textContent = player1;
+                        partidaplayer1 = false;
+                        partidaplayer2 = true;
+                        //console.log(player1)
+                    } else if (partidaplayer2 === true) {
+                        arreglo[i][j] = player2;
+                        button.textContent = player2;
+                        partidaplayer2 = false;
+                        partidaplayer1 = true;
+                        //console.log(player2)
+                    }
+                    verifica();
+
+
                 }
 
                 function verifica() {
@@ -129,14 +133,14 @@
                         countOV = 0
                     }
 
-                    
+
                     console.log(arreglo)
 
                 }
 
-                
 
-                
+
+
             } else {
                 alert('No ingresaste ningún número, reload página')
             }
